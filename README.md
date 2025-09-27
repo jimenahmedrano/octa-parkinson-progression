@@ -1,9 +1,9 @@
 # OCTA Parkinson Progression (public)
 
-De-identified OCTA analysis for Parkinson’s progression: patient-level models (Logit), feature screening (RF/ANOVA), reproducible Jupyter notebook.
+De-identified OCTA analysis for Parkinson’s progression: patient-level models (Logit), feature screening (RF/ANOVA), reproducible Jupyter notebook. **No raw data** is published.
 
 > **TL;DR**  
-> This repo ships a public, de-identified notebook to explore OCTA metrics in PD vs. controls, build deltas across visits, define a progression composite, and fit patient-level logistic models (with figures and tidy outputs). **No raw data** is included.
+> Public, de-identified notebook to explore OCTA metrics in PD vs. controls, build deltas across visits, define a progression composite, and fit patient-level logistic models (with figures and tidy outputs).
 
 ---
 
@@ -35,23 +35,35 @@ De-identified OCTA analysis for Parkinson’s progression: patient-level models 
 
 ## Privacy & de-identification
 
-- Participants are pseudonymized as `PatientID` (hashed).  
-- Direct identifiers (`NombrePaciente`, `NombreControl`, `FechaNac`, etc.) are **dropped**.  
+- Participants are pseudonymized as `PatientID` (hashed).
+- Direct identifiers (`NombrePaciente`, `NombreControl`, `FechaNac`, etc.) are **dropped**.
 - **Raw data is not published**. Place your private Excel locally (see below).
 
-If you re-run the de-identification step yourself, set a salt **locally** (do not commit secrets):
+**De-identification salt**
+
+The notebook reads an environment variable for pseudonymization:
+`os.getenv("PII_SALT", "CHANGE-ME")`.
+
+If you re-run the de-identification step yourself, set a salt **locally** before running and **never commit a real salt**.
 
 ```bash
+# macOS / Linux
 export PII_SALT="your-local-secret-salt"
-# Windows PowerShell: $env:PII_SALT="your-local-secret-salt"
 ```
+```bash
+# Windows PowerShell
+$env:PII_SALT="your-local-secret-salt"
+```
+
+> Tip: leave the default "CHANGE-ME" in the codebase; set the real value only in your local environment or CI secrets.
+
 ---
 
 ## Environment
 
 Python ≥ 3.9 is recommended.
 
-Quick setup (venv)
+**Quick setup (venv)**
 
 ```bash
 python -m venv .venv
@@ -59,7 +71,7 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Conda (optional)
+**Conda (optional)**
 
 ```bash
 conda create -n octa python=3.10 -y
@@ -68,7 +80,7 @@ pip install -r requirements.txt
 ```
 
 requirements.txt
-```nginx
+```
 numpy
 pandas
 matplotlib
@@ -83,7 +95,7 @@ openpyxl
 
 ## How to run
 
-1.   Clone this repo or download it as ZIP.
+1.   Clone this repo or download it as a ZIP.
 2.   Place your private Excel (e.g., octa_parkinson2.xlsx) outside the repo or keep it untracked (see .gitignore).
 3.   Activate the environment (see above).
 4.   Launch Jupyter and open the notebook:
@@ -249,9 +261,7 @@ Usually due to: imputation order, a renamed column, or dropna() removing rows ne
 
 Code: MIT © 2025 Ana Jimena Hernández-Medrano
 
-Docs & Figures (optional): CC BY 4.0 (if you add LICENSE-DOCS and note it here)
-
-See LICENSE for details. If you prefer one license for everything, MIT is fine for this repo.
+See LICENSE for details.
 
 ---
 
@@ -260,8 +270,8 @@ See LICENSE for details. If you prefer one license for everything, MIT is fine f
 If you use this code, please cite the repository:
 
 ```java
-Your Name (2025). OCTA Parkinson Progression (public).
-GitHub repository: https://github.com/<your-username>/<your-repo>
+Ana Jimena Hernández-Medrano (2025). OCTA Parkinson Progression (public).
+GitHub repository: https://github.com/jimenahmedrano/octa.parkinson-progression
 ```
 
 (Optional) Add a ```CITATION.cff``` to enable GitHub’s “Cite this repository” button:
