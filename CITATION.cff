@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+title: "OCTA Parkinson analysis (public version)"
+authors:
+  - family-names: Hernández-Medrano
+    given-names: Ana Jimena
+date-released: 2025-09-27
+version: "0.1.0"
+license: MIT
